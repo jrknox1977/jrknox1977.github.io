@@ -1,6 +1,6 @@
 ---
 title: "Try Hack Me - Pickle Rick Walkthrough"
-date: 2022-07-25 12:00:00
+date: 2022-07-24 12:00:00
 catagories: [article,walkthrough]
 tags: [THM]
 image: https://imgur.com/BkKtAkO
