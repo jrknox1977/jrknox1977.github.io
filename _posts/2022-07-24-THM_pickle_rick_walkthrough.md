@@ -6,11 +6,13 @@ tags: [THM, ctf, beginner]
 ---
 ![Rick being cool.](https://imgur.com/BkKtAkO.png)
 
+[Link to Pickle Rick Try Hack Me Room](https://tryhackme.com/room/picklerick)
+
+Click on the image below to go to Part 1 of my video walkthough of the box:
 [![Youtube Walkthrough Part 1](http://img.youtube.com/vi/vHnFwsF0gu4/0.jpg)](https://youtu.be/vHnFwsF0gu4)
 
-[Link to Pickle Rick Room]()(https://tryhackme.com/room/picklerick)
 
-
+## Oldie but a a Goodie! 
 This is an old room on Try Hack Me. At the time I am writing this walkthrough it has been released for almost 4 years!
 This room is also a CTF (Capture the Flag) room which means that it is not a "Real World" experience. Instead it is meant to help us practice our skills.
 
