@@ -27,7 +27,7 @@ We take a look at the site:
 
 And we find a login page. We could try to brute force, but let's keep looking before we take a sledge hammer to the website.
 
-Using inspect on the page us see that there is a session cookie that is base64 encoded.
+Using inspect on the page we see that there is a session cookie that is base64 encoded.
 
 ![](/assets/images/vn_n/cookie-decode.jpg)
 
@@ -51,7 +51,7 @@ Let's google it!!
 
 Checking out that first website we discover that we can create an evil cookie that will trigger remote code execution.
 
-I found a modified version ofthe script from this site that works nicely for our purposes:
+I found a modified version of the script from this site that works nicely for our purposes:
 
 ```python
 #!/usr/bin/python
@@ -119,11 +119,11 @@ print(PAYLOAD)
 
 You run the above script like this: `python3 nodeshell.py <RHOST> <RPORT>`
 
-The output will havea base64 string, copy it and use it as the value for the session cookie.
+The output will have a base64 string, copy it and use it as the value for the session cookie.
 
 DON'T forget to start your listener!!!
 
-AND SPECIAL NOTE! On this box we will need to use nano and I was not able to get a stable using `rlwrap` wiht `nc` I had to just use `nc -nvlp 1337` and then use some stablization. 
+AND SPECIAL NOTE! On this box we will need to use `nano` and I was not able to get a stable shell using `rlwrap` with `nc` I had to use `nc -nvlp 1337` by itself and then use some stablization. 
 
 Refresh the page with the modified cookie:
 
@@ -167,6 +167,8 @@ echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json
 chmod 777 -R $TF
 sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
 ```
+You should see somthing like this: 
+
 ![](/assets/images/vn_n/serv-manage.jpg)
 
 # Escalate to root
@@ -175,7 +177,7 @@ We jump straight to `sudo -l`
 
 ![](/assets/images/vn_n/sudo-l.jpg)
 
-And we discover that again we have some `sudo` permissions but this time we can run as root!
+And we discover that again we have some `sudo` permissions but this time we can run some commands as root!
 
 Let's use `locate` to find the vulnnet service we have access to and examine it.
 
@@ -187,7 +189,7 @@ cat /etc/systemd/system/vulnnet-auto.timer
 
 [](/assets/images/vn_n/service1.jpg)
 
-This service appears to refer to another service `vulnnet-job.service` lets take a look at it too.
+This service appears to refer to another service `vulnnet-job.service` let's take a look at it too.
 
 ```bash
 locate vulnnet-auto.timer.timer
@@ -198,7 +200,8 @@ cat /etc/systemd/system/vulnnet-job.service
 It also works as a one-liner!! 
 ```
 TF=$(mktemp -d); echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json; chmod 777 -R $TF; sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
-``
+```
+
 [](/assets/images/vn_n/job-service.jpg)
 
 We need to modify both files.
