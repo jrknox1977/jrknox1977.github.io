@@ -2,7 +2,7 @@
 title: "Try Hack Me - VulnNet Node Walkthrough"
 date: 2022-07-27 12:00:00
 catagories: [article,walkthrough]
-tags: [THM, ctf, easy, linux, express, ]
+tags: [THM, ctf, easy, linux, express, services ]
 ---
 
 Continuing on with the VulnNet series, this box is called [VulnNet Node](https://tryhackme.com/room/vulnnetnode).
@@ -240,7 +240,7 @@ ExecStart=/bin/bash -c 'cp /bin/bash /tmp/rootbash;chmod +xs /tmp/rootbash'
 WantedBy=multi-user.target
 ```
 
-We don't need a shell. In fact creating a `rootbash` will work better.
+We don't need a shell. In fact, creating a `rootbash` will work better.
 
 After modifing the files we need to navigate to `/tmp` and wait for the creation of our `rootbash`
 
