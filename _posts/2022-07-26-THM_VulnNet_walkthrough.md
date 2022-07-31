@@ -2,7 +2,7 @@
 title: "Try Hack Me - VulnNet Walkthrough"
 date: 2022-07-26 12:00:00
 catagories: [article,walkthrough]
-tags: [THM, ctf, medium, linux, subdomains, LFI, ssh2john, burp]
+tags: [THM, VulnNet, ctf, medium, linux, subdomains, LFI, ssh2john, burp]
 ---
 
 # Intro

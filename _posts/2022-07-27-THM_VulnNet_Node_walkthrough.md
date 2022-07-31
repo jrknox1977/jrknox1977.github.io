@@ -2,7 +2,7 @@
 title: "Try Hack Me - VulnNet Node Walkthrough"
 date: 2022-07-27 12:00:00
 catagories: [article,walkthrough]
-tags: [THM, ctf, easy, linux, express, services ]
+tags: [THM, VulnNet, ctf, easy, linux, express, services ]
 ---
 
 Continuing on with the VulnNet series, this box is called [VulnNet Node](https://tryhackme.com/room/vulnnetnode).
