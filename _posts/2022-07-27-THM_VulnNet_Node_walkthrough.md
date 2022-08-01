@@ -7,6 +7,10 @@ tags: [THM, VulnNet, ctf, easy, linux, express, services ]
 
 Continuing on with the VulnNet series, this box is called [VulnNet Node](https://tryhackme.com/room/vulnnetnode).
 
+
+Click on the image below for my video walkthough of the box:
+[![Youtube Walkthrough](/assets/images/vn_n/vn_node_tumb_button.jpg)](https://youtu.be/2UQ3iCRKrwk)
+
 We start the box by running autorecon. [Click here to see my post on how to use it](https://knox.technology/posts/using_autorecon/)
 
 # Recon
